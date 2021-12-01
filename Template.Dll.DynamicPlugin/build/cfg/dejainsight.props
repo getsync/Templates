@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<ImportGroup Label="PropertySheets">
+</ImportGroup>
+
+<!--
+  ####################################################################################################
+  # DejaInsight.props
+  #
+  # Property sheet for the DejaInsight log tool integration
+  ####################################################################################################
+-->
+
+  <PropertyGroup Label="UserMacros">
+    <DejaInsightVersion>2.0.22050</DejaInsightVersion>
+    <DejaInsightDir>D:\Development\cybercastor\dejainsight</DejaInsightDir>
+  </PropertyGroup>
+
+  <!-- General CodeMeter Environment added in UserMacros -->
+  <PropertyGroup Label="DejaInsightMacros">
+    <DejaInsightIncludePath>$(DejaInsightDir)\include\</DejaInsightIncludePath>
+    <DejaInsightLibPath>$(DejaInsightDir)\lib\</DejaInsightLibPath>
+    <DejaInsightLib32>$(DejaInsightLibPath)\DejaInsight.x86.lib</DejaInsightLib32>
+    <DejaInsightDll32>$(DejaInsightLibPath)\DejaInsight.x86.dll</DejaInsightDll32>
+    <DejaInsightLib64>$(DejaInsightLibPath)\DejaInsight.x64.lib</DejaInsightLib64>
+    <DejaInsightDll64>$(DejaInsightLibPath)\DejaInsight.x64.dll</DejaInsightDll64>
+  </PropertyGroup>  
+
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(DejaInsightIncludePath);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DEJA_ENABLED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(DejaInsightLibPath);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(DejaInsightLib32);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy $(DejaInsightDll32) $(OutDir)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+
+</Project>
